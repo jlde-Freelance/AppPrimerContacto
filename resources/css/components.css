@@ -1,0 +1,29 @@
+@layer components {
+
+    .prc-card { @apply bg-white rounded-lg shadow-lg p-4 md:p-8 }
+
+    .prc-sidebar-link { @apply flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-white hover:text-black mb-2 }
+    .prc-sidebar-link.active { @apply flex bg-white text-black mb-2 }
+
+    /* Inputs Forms */
+    .prc-input-group { @apply mb-2 }
+    .prc-label { @apply text-base mb-1 }
+    .prc-input { @apply h-11 w-full rounded-md text-base focus:outline-vegas-gold border-2 border-philippine-silver px-4 py-2 read-only:bg-bright-gray }
+    .prc-checkbox { @apply w-5 h-5 border-2 border-vegas-gold focus:bg-vegas-gold cursor-pointer }
+    .prc-button { @apply text-base !bg-blue-green text-white !py-2.5 !px-4 !rounded-md uppercase hover:saturate-200 flex items-center justify-center gap-2 focus:!shadow }
+    .prc-button.prc-button-secondary { @apply !bg-white !text-blue-green border-2 !border-blue-green !font-semibold }
+
+    .prc-status { @apply bg-green-100 text-green-800 text-xs mr-2 px-2.5 py-0.5 rounded-2xl border-green-800 border font-semibold}
+    .prc-status.status-value-0 { @apply bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl border-red-800 }
+
+    .prc-datatable { @apply !w-full py-3 !border-b-0 }
+    .prc-datatable thead tr { @apply bg-blue-green text-white }
+    .prc-datatable thead tr th:first-child { @apply rounded-tl-2xl }
+    .prc-datatable thead tr th:last-child { @apply rounded-tr-2xl }
+    .prc-datatable tr th { @apply uppercase !px-5}
+    .prc-datatable tr td { @apply !px-5}
+    .prc-datatable tbody tr.even { @apply bg-[#F2F2F2]}
+    .prc-datatable tbody tr:last-child td:first-child { @apply rounded-bl-2xl }
+    .prc-datatable tbody tr:last-child td:last-child { @apply rounded-br-2xl }
+
+}

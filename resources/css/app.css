@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import "./components.css";
+@import "./loading.css";
+@import "./custom-select2.css";
+@import "./datatable.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { font-family: 'Montserrat', sans-serif; }
+
+/** css scrollbar **/
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: #f1f1f1; cursor: pointer }
+::-webkit-scrollbar-thumb { background: #888; }
+::-webkit-scrollbar-thumb:hover { background: #11484A; }
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel { border: 2px solid #11484a !important; }

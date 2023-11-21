@@ -1,0 +1,1 @@
+<img {{ $attributes->merge() }} src="{{asset('img/logo_negro.svg')}}" alt="Logo - Primer Contacto">

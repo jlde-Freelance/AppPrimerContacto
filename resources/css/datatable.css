@@ -1,0 +1,90 @@
+
+.dataTables_length label select,
+.dataTables_filter label input {
+    height: 2.2rem;
+    border-radius: 0.375rem !important;
+    border-width: 2px !important;
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(179 179 179 / var(--tw-border-opacity)) !important;
+    padding: 0 0.7rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+    outline-offset: 0;
+    margin-left: 10px !important;
+}
+
+.dataTables_length label select:focus, .dataTables_filter label input:focus {
+    outline-color: #BFA758;
+}
+
+.dataTables_length label select::placeholder, .dataTables_filter label input::placeholder {
+    opacity: 1;
+    color: #9CA3AF;
+}
+
+.dataTables_wrapper {
+    overflow: auto hidden !important;
+    padding-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    display: flex;
+}
+
+.dataTables_paginate a {
+    border-radius: 0 !important;
+    padding: 0.625rem 1rem;
+    margin: 0 !important;
+    font-size: .8rem;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+    --tw-border-opacity: 1;
+
+    border-color: #11484A !important;
+    background-color: white !important;
+    color: #11484A !important;
+    font-weight: 600;
+}
+
+@media (max-width: 576px) {
+    .dataTables_paginate span {
+        width: 100%;
+    }
+}
+
+.dataTables_paginate span a {
+    border-width: 2px 1px !important;
+}
+
+.dataTables_paginate .ellipsis {
+    display: none
+}
+
+.dataTables_wrapper .dataTables_paginate > .paginate_button,
+.dataTables_wrapper .dataTables_paginate > .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate > .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate > .paginate_button.disabled:active {
+    display: grid;
+    place-content: center;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: white !important;
+    background: #11484A !important;
+}
+
+.dataTables_wrapper .dataTables_paginate > .paginate_button:first-child {
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+    border-width: 2px 1px 2px 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate > .paginate_button:last-child {
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+    border-width: 2px 2px 2px 1px;
+}
