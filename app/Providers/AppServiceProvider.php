@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ModelBase;
 use App\Models\ResidentialUnits;
 use App\Observers\ModelObserver;
 use Illuminate\Database\Eloquent\Model;

@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
-class ResidentialUnits extends Model {
+/*
+ *
+ */
+
+class ResidentialUnits extends ModelBase {
 
     use SoftDeletes;
 
@@ -16,7 +21,7 @@ class ResidentialUnits extends Model {
     protected $casts = [
         'stratum_id' => 'int',
         'status' => 'int',
-        'specifications' => 'array'
+        'specifications' => 'array',
     ];
 
 }

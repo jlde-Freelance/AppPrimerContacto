@@ -4,9 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+if (!defined('TABLE_RESOURCE_FILES')) define('TABLE_RESOURCE_FILES', 'resource_files');
+
 return new class extends Migration {
+
     public function up(): void {
-        Schema::create('resource_files', function (Blueprint $table) {
+        Schema::create(TABLE_RESOURCE_FILES, function (Blueprint $table) {
             $table->id();
             $table->string('entity', 100)->nullable();
             $table->bigInteger('entity_id')->nullable();
@@ -20,6 +23,6 @@ return new class extends Migration {
     }
 
     public function down(): void {
-        Schema::dropIfExists('resource_files');
+        Schema::dropIfExists(TABLE_RESOURCE_FILES);
     }
 };

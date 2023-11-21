@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Types\MasterOptionsType;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -15,7 +14,7 @@ use Illuminate\Support\Collection;
  * @property integer $order
  * @method static Builder getOptionsByType(MasterOptionsType $type)
  */
-class MasterOptions extends Model {
+class MasterOptions extends ModelBase {
 
     public $timestamps = false;
 

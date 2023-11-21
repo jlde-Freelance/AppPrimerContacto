@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Location;
 use App\Models\MasterOptions;
 use App\Models\User;
 use App\Types\MasterOptionsType;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder {
     public function run(): void {
         $this->createAdminUser();
         $this->loadMasterOptions();
+        $this->loadLocations();
     }
 
     /**
@@ -251,4 +253,22 @@ class DatabaseSeeder extends Seeder {
         }
 
     }
+
+    /*
+     * @return void
+     */
+    private function loadLocations() {
+        if (($handle = fopen(storage_path('app/resources/locations.csv'), "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1500)) !== FALSE) {
+                Location::create([
+                    'department_dane' => $data[0],
+                    'department_name' => $data[1],
+                    'municipality_dane' => $data[2],
+                    'municipality_name' => $data[3]
+                ]);
+            }
+            fclose($handle);
+        }
+    }
+
 }

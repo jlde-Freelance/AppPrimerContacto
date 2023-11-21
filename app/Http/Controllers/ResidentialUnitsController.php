@@ -26,13 +26,14 @@ class ResidentialUnitsController extends Controller {
          * We capture the data sent by POST to register the user.
          */
         if ($request->isMethod('POST')) {
-            $start = (int) $request->get('start');
-            $length = (int) $request->get('length');
-            $search = (string) $request->get('search', false);
+            $start = (int)$request->get('start');
+            $length = (int)$request->get('length');
+            $search = (string)$request->get('search', false);
             $page = ($start / $length) + 1;
             $data = ResidentialUnits::query();
             if (!empty($search)) $data = $data->where('name', 'like', sprintf('%%%s%%', $search));
             $data = $data->paginate(perPage: $length, page: $page);
+
             return [
                 'data' => $data->collect()->map(function (ResidentialUnits $item) {
                     return [
@@ -88,7 +89,7 @@ class ResidentialUnitsController extends Controller {
      * @return RedirectResponse
      */
     public function destroy(ResidentialUnits $model) {
-        $model->delete();
+        $model->forceDelete();
         Alert::tSuccess('messages.success.model-destroy');
         return redirect()->route('residential-units.index');
     }
