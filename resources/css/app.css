@@ -16,5 +16,4 @@
 ::-webkit-scrollbar-thumb { background: #888; }
 ::-webkit-scrollbar-thumb:hover { background: #11484A; }
 
-
 div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel { border: 2px solid #11484a !important; }

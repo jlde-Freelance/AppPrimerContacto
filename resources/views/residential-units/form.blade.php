@@ -1,6 +1,7 @@
 @php
     use \App\Types\MasterOptionsType;
 @endphp
+<x-import-library name="Select2"/>
 <form method="POST" action="{{route('residential-units.store', $model ?? null)}}">
     @csrf
 

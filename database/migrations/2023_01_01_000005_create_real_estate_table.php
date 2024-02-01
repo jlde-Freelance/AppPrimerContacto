@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-if (!defined('TABLE_REAL_ESTATE')) define('TABLE_REAL_ESTATE', 'real_estate');
+if (!defined('TABLE_REAL_ESTATE')) define('TABLE_REAL_ESTATE', 'real_estates');
 
 return new class extends Migration {
     /**
@@ -22,6 +22,8 @@ return new class extends Migration {
             $table->foreignId('location_id')->nullable()->references('id')->on(TABLE_LOCATIONS);
             $table->decimal('rental_value', 12)->nullable();
             $table->decimal('sale_value', 12)->nullable();
+
+            $table->string('description', 2000)->nullable();
             $table->tinyInteger('status')->default(0);
 
             $table->string('address', 200)->comment('Dirección')->nullable();
@@ -52,6 +54,8 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists(TABLE_REAL_ESTATE);
+        Schema::enableForeignKeyConstraints();
     }
 };

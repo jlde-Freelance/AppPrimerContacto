@@ -30,6 +30,8 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists(TABLE_RESIDENTIAL_UNITS);
+        Schema::enableForeignKeyConstraints();
     }
 };

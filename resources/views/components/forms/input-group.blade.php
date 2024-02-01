@@ -4,8 +4,9 @@
 <div class="prc-input-group">
     <x-forms.input-label :for="$name" :value="$label" :required="$required"/>
     @switch($type)
+        @case('password')
         @case('input')
-            <x-forms.input-text :id="$name" :name="$name" {{ $attributes }} />
+            <x-forms.input-text :id="$name" :name="$name" :type="$type" {{ $attributes }} />
             @break
         @case('select')
             <x-forms.input-select :id="$name" :name="$name" {{ $attributes }}/>

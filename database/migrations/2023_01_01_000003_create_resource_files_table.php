@@ -23,6 +23,8 @@ return new class extends Migration {
     }
 
     public function down(): void {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists(TABLE_RESOURCE_FILES);
+        Schema::enableForeignKeyConstraints();
     }
 };

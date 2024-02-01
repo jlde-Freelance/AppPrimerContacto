@@ -21,10 +21,10 @@
                     <x-sidebar-item label="Crear Unidades" to="{{route('residential-units.create')}}"/>
                 </x-sidebar-item-dropdown>
             @endif
-{{--            <x-sidebar-item-dropdown icon="houses" label="Admin. Inmuebles" path="real-estate">--}}
-{{--                <x-sidebar-item label="Buscar Inmuebles" to="{{route('real-estate.index')}}"/>--}}
-{{--                <x-sidebar-item label="Crear Inmueble" to="{{route('real-estate.create')}}"/>--}}
-{{--            </x-sidebar-item-dropdown>--}}
+            <x-sidebar-item-dropdown icon="houses" label="Admin. Inmuebles" path="real-estate">
+                <x-sidebar-item label="Buscar Inmuebles" to="{{route('real-estate.index')}}"/>
+                <x-sidebar-item label="Crear Inmueble" to="{{route('real-estate.create')}}"/>
+            </x-sidebar-item-dropdown>
         </ul>
 
     </div>

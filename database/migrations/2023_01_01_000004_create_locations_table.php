@@ -20,7 +20,9 @@ return new class extends Migration {
     }
 
     public function down(): void {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists(TABLE_LOCATIONS);
+        Schema::enableForeignKeyConstraints();
     }
 
 };
