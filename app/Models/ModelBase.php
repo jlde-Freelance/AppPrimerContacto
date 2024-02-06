@@ -21,6 +21,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class ModelBase extends Model {
 
     /**
+     * @param array $inputs
+     * @return void
+     */
+    public function loadFillable(array $inputs): void {
+        foreach ($inputs as $key => $value) {
+            if ($this->isFillable($key)) $this->$key = $value;
+        }
+    }
+
+    /**
      * @param $casts
      * @return string[]
      */

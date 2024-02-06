@@ -1,4 +1,4 @@
-@props(['label','name','type'=>'input'])
+@props(['label','name', 'id','type'=>'input'])
 @php($required = $attributes->get('required', false))
 
 <div class="prc-input-group">
@@ -6,7 +6,13 @@
     @switch($type)
         @case('password')
         @case('input')
-            <x-forms.input-text :id="$name" :name="$name" :type="$type" {{ $attributes }} />
+            <x-forms.input-text :id="$id ?? $name" :name="$name" :type="$type" {{ $attributes }} />
+            @break
+        @case('file')
+            <x-forms.input-file :id="$id ?? $name" :name="$name" :type="$type" {{ $attributes }} />
+            @break
+        @case('file-zone')
+            <x-forms.input-file-zone :id="$id ?? $name" :name="$name" {{ $attributes }}/>
             @break
         @case('select')
             <x-forms.input-select :id="$name" :name="$name" {{ $attributes }}/>

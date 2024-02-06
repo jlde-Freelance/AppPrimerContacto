@@ -1,3 +1,4 @@
+<x-import-library name="Currency"/>
 <x-import-library name="DataTable"/>
 <x-app-layout>
     <x-header :title="__('Buscador de Inmuebles')">

@@ -94,4 +94,22 @@ class ResidentialUnitsController extends Controller {
         return redirect()->route('residential-units.index');
     }
 
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function select2Ajax(Request $request) {
+        $search = $request->get('q', false);
+        if ($search) {
+            $query = ResidentialUnits::query()->where('name', 'LIKE', '%' . $search . '%')->get()->collect();
+            $data = $query->map(function ($item) {
+                return ['id' => $item->id, 'text' => $item->name];
+            });
+            return ['results' => $data];
+        }
+        return [];
+    }
+
+
 }

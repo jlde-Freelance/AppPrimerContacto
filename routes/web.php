@@ -61,9 +61,9 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/real-estate')->group(function () {
         Route::match(['GET', 'POST'], '/', [RealEstateController::class, 'index'])->name('real-estate.index');
         Route::get('/create', [RealEstateController::class, 'create'])->name('real-estate.create');
-        Route::get('/update/{model?}', [RealEstateController::class, 'update'])->name('real-estate.update');
-        Route::post('/store/{model?}', [RealEstateController::class, 'update'])->name('real-estate.store');
-        Route::delete('/{model?}', [RealEstateController::class, 'destroy'])->name('real-estate.destroy');
+        Route::get('/update/{model}', [RealEstateController::class, 'update'])->name('real-estate.update');
+        Route::post('/store/{model?}', [RealEstateController::class, 'store'])->name('real-estate.store');
+        Route::delete('/{model}', [RealEstateController::class, 'destroy'])->name('real-estate.destroy');
 
         Route::get('/select2ajax', [RealEstateController::class, 'ajaxGetOptions'])->name('real-estate.select2ajax');
     });

@@ -26,8 +26,12 @@
         @break
     @case("InputMask")
         @push('scripts')
-            {{--        <script src="//unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>--}}
             <script src="//cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/jquery.inputmask.min.js"></script>
+        @endpush
+        @break
+    @case("Currency")
+        @push('scripts')
+            <script src="//unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>
         @endpush
         @break
 @endswitch

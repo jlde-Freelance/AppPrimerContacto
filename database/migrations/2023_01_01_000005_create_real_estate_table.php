@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->uuid();
             $table->string('code', 10);
-            $table->foreignId('type_id')->nullable()->references('id')->on(TABLE_MASTER_OPTIONS);
-            $table->foreignId('action_id')->nullable()->references('id')->on(TABLE_MASTER_OPTIONS);
+            $table->foreignId('type_id')->references('id')->on(TABLE_MASTER_OPTIONS);
+            $table->foreignId('action_id')->references('id')->on(TABLE_MASTER_OPTIONS);
             $table->foreignId('unit_id')->nullable()->references('id')->on(TABLE_RESIDENTIAL_UNITS);
             $table->foreignId('location_id')->nullable()->references('id')->on(TABLE_LOCATIONS);
             $table->decimal('rental_value', 12)->nullable();
@@ -43,6 +43,8 @@ return new class extends Migration {
 
             $table->foreignId('created_by')->nullable()->references('id')->on(TABLE_USER);
             $table->foreignId('updated_by')->nullable()->references('id')->on(TABLE_USER);
+
+            $table->json('specifications')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
