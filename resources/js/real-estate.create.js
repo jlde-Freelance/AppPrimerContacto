@@ -1,15 +1,26 @@
 /**
  * loadScriptFormRealStateCreate
  */
-export default function loadScriptFormRealStateCreate() {
+export default function loadScriptFormRealState() {
 
     const initLeaflet = () => {
 
         const leafletMap = L.map('map').setView([6.2428056, -75.588572], 15);
+        const inputLatitude = document.getElementById('latitude')
+        const inputLongitude = document.getElementById('longitude')
 
         L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(leafletMap);
+
+        const loadMarker = (latitude, longitude) => {
+            const KEY_MARKER = 'real-estate-merker';
+            if (window[KEY_MARKER]) window[KEY_MARKER].remove();
+            inputLatitude.value = latitude;
+            inputLongitude.value = longitude;
+            window[KEY_MARKER] = L.marker([latitude, longitude]);
+            window[KEY_MARKER].addTo(leafletMap);
+        }
 
         /**
          * Cuando se usa el mapa dentro de un tab, se adiciona el siguiente código para ajustar el tamaño al cargar el tab
@@ -18,17 +29,21 @@ export default function loadScriptFormRealStateCreate() {
         const menuItem = document.getElementById('tab-info-admin');
         (new MutationObserver(() => (menuItem.style.display !== 'none' && leafletMap.invalidateSize()))).observe(menuItem, {attributes: true});
 
-        leafletMap.on('click', ({latlng}) => {
-            const KEY_MARKER = 'real-estate-merker';
-            if (window[KEY_MARKER]) window[KEY_MARKER].remove();
-            document.getElementById('latitude').value = latlng.lat;
-            document.getElementById('longitude').value = latlng.lng;
-            window[KEY_MARKER] = L.marker([latlng.lat, latlng.lng]);
-            window[KEY_MARKER].addTo(leafletMap);
-        })
+        if (inputLatitude.value && inputLongitude.value) loadMarker(inputLatitude.value, inputLongitude.value);
+        leafletMap.on('click', ({latlng}) => loadMarker(latlng.lat, latlng.lng))
 
     }
 
+    const intiEventImagePrimary = () => {
+        document.getElementById('image_primary').addEventListener('change', (e) => {
+            const [file] = e.target.files
+            if (file) {
+                document.getElementById('preview-image_primary').src = URL.createObjectURL(file)
+            }
+        })
+    }
+
     initLeaflet();
+    intiEventImagePrimary();
 
 }

@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Location $location
  * @property float $rental_value
  * @property float $sale_value
+ * @property string $image_primary
  * @property string $description
  * @property int $status
  * @property string $address
@@ -106,7 +107,7 @@ class RealEstate extends ModelBase {
         'specifications' => 'array',
     ];
 
-    protected static function boot (): void {
+    protected static function boot(): void {
         // Boot other traits on the Model
         parent::boot();
 
@@ -159,23 +160,38 @@ class RealEstate extends ModelBase {
         return str_pad($lastCode, 5, '0', STR_PAD_LEFT);
     }
 
+
     /**
      * @param $size
      * @return array|mixed
      */
+    public function getImagePrimary($size = null) {
+        $images = [];
+        $SIZES = ResourceFile::getSizes();
+        foreach ($SIZES as $key => $value) {
+            $images[$key] = asset("images/$key/$this->image_primary");
+        }
+        return $size ? $images[$size] : $images;
+    }
+
+    /**
+     * @param ResourceFile::IMG_SIZE_MEDIUM $size
+     * @return array|mixed
+     */
     public function getImages($size = null): mixed {
         if (isset($this->images)) return $this->images;
-        $BASE_IMAGE_NAMES = ResourceFile::query()
+        $ResourceFilesPath = ResourceFile::query()
             ->where('entity', RealEstate::class)
             ->where('entity_id', $this->id)
             ->get()->collect()->map(fn(ResourceFile $x) => $x->path)
             ->toArray();
-        if ($BASE_IMAGE_NAMES) {
+        if ($ResourceFilesPath) {
             $images = [];
-            foreach ($BASE_IMAGE_NAMES as $imgName) {
-                $images[ResourceFile::IMG_SIZE_ORIGINAL][] = asset("images/original/$imgName");
-                $images[ResourceFile::IMG_SIZE_MEDIUM][] = asset("images/medium/$imgName");
-                $images[ResourceFile::IMG_SIZE_SMALL][] = asset("images/small/$imgName");
+            $SIZES = ResourceFile::getSizes();
+            foreach ($ResourceFilesPath as $Path) {
+                foreach ($SIZES as $key => $value) {
+                    $images[$key][] = asset("images/$key/$Path");
+                }
             }
             return $size ? $images[$size] : $images;
         }

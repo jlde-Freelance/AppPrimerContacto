@@ -76,6 +76,20 @@ class RealEstateController extends Controller {
     }
 
     /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+    public function update(RealEstate $model) {
+        $Options = MasterOptions::getDataFormSelect([
+            MasterOptionsType::TYPE_REAL_ESTATE,
+            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
+            MasterOptionsType::TYPE_SPECIFICATIONS
+        ]);
+        $Options[Location::TYPE_LOCATION_OPTIONS] = Location::getDataFormSelect();
+        $newCode = RealEstate::getLastCode();
+        return view('real-estate.update', compact('Options', 'model'));
+    }
+
+    /**
      * @param Request $request
      * @param RealEstate|null $model
      * @return RedirectResponse
@@ -121,6 +135,16 @@ class RealEstateController extends Controller {
          */
         $status = true;
 
+        $ImagePrimary = $request->allFiles()['image_primary'] ?? null;
+        if ($ImagePrimary) {
+            $FileName = sprintf('%s_%s.jpg', \Str::uuid(), $model->id);
+            $IMGs = ResourceFile::saveNewImage($ImagePrimary, $FileName);
+            if ($status = count($IMGs) > 0) {
+                $model->image_primary = $FileName;
+                $model->save();
+            }
+        }
+
         /**
          * We save the images
          * @var UploadedFile[] $Images
@@ -151,10 +175,7 @@ class RealEstateController extends Controller {
                     try {
                         $FileName = sprintf('%s_%s.jpg', \Str::uuid(), $model->id);
                         $IMGs = ResourceFile::saveNewImage($Image, $FileName);
-                        if (count($IMGs)) {
-                            $NewImages[] = current($IMGs)->filename;
-                            $status = true;
-                        }
+                        if ($status = count($IMGs) > 0) $NewImages[] = $FileName;
                     } catch (Exception $e) {
                         if (env('APP_ENV', 'dev') == 'dev') dd($e);
                         Alert::tError('messages.errors.model-saved');

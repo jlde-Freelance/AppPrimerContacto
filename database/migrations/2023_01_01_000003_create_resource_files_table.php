@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-if (!defined('TABLE_RESOURCE_FILES')) define('TABLE_RESOURCE_FILES', 'resourceFiles');
+if (!defined('TABLE_RESOURCE_FILES')) define('TABLE_RESOURCE_FILES', 'resource_files');
 
 return new class extends Migration {
 

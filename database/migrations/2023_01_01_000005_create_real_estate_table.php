@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->foreignId('location_id')->nullable()->references('id')->on(TABLE_LOCATIONS);
             $table->decimal('rental_value', 12)->nullable();
             $table->decimal('sale_value', 12)->nullable();
-
+            $table->string('image_primary', 100)->nullable();
             $table->string('description', 2000)->nullable();
             $table->tinyInteger('status')->default(0);
 

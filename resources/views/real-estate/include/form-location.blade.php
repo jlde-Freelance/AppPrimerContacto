@@ -6,7 +6,7 @@
 
     <x-forms.input-group type="select" name="location_id"
                          :label="__('Localización')"
-                         value="{{$model->location_id ?? ''}}" required
+                         value="{{$model->location_id ?? ''}}"
                          :options="$Options[Location::TYPE_LOCATION_OPTIONS]"/>
 
     <div class="md:col-span-3 py-2">

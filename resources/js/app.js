@@ -7,7 +7,7 @@ Alpine.start();
 
 import loadViewUnitsIndex from "./units.index.js";
 import loadViewRealEstateIndex from "./real-estate.index.js";
-import loadScriptFormRealStateCreate from "./real-estate.create.js";
+import loadScriptFormRealState from "./real-estate.create.js";
 
 $(document).ready(function () {
 
@@ -164,11 +164,11 @@ $(document).ready(function () {
 
     initGlobalLoading();
 
-    const pathsToEventsForms = ['residential-units.create', 'real-estate.create']
+    const pathsToEventsForms = ['residential-units.create', 'real-estate.create', 'real-estate.update']
     if (pathsToEventsForms.includes(route().current())) loadGlobalEventsForms();
 
     if (route().current() === 'residential-units.index') loadViewUnitsIndex();
     if (route().current() === 'real-estate.index') loadViewRealEstateIndex();
-    if (route().current() === 'real-estate.create') loadScriptFormRealStateCreate();
+    if (['real-estate.create', 'real-estate.update'].includes(route().current())) loadScriptFormRealState();
 
 });
