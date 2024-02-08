@@ -6,6 +6,7 @@
     @switch($type)
         @case('password')
         @case('input')
+        @case('number')
             <x-forms.input-text :id="$id ?? $name" :name="$name" :type="$type" {{ $attributes }} />
             @break
         @case('file')

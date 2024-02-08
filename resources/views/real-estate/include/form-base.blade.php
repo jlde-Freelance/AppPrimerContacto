@@ -33,19 +33,19 @@
                          data-ajax-url="{{ route('residential-units.select2ajax') }}"
                          data-ajax-dataType="json"/>
 
-    <x-forms.input-group name="house_level" :label="__('Cuantos Pisos')" maxlength="30"
+    <x-forms.input-group name="house_level" type="number" :label="__('Cuantos Pisos')" maxlength="30"
                          value="{{ $model->house_level ?? '' }}"/>
 
-    <x-forms.input-group name="apartment_level" :label="__('Piso')"  maxlength="30"
+    <x-forms.input-group name="apartment_level" type="number" :label="__('Piso')"  maxlength="30"
                          value="{{ $model->apartment_level ?? '' }}"/>
 
-    <x-forms.input-group name="bedrooms" :label="__('Habitaciones')"  maxlength="30"
+    <x-forms.input-group name="bedrooms" type="number" :label="__('Habitaciones')"  maxlength="30"
                          value="{{ $model->bedrooms ?? '' }}"/>
 
-    <x-forms.input-group name="bathrooms" :label="__('Baños')"  maxlength="30"
+    <x-forms.input-group name="bathrooms" type="number" :label="__('Baños')"  maxlength="30"
                          value="{{ $model->bathrooms ?? '' }}"/>
 
-    <x-forms.input-group name="parking" :label="__('Parqueadero')"  maxlength="30"
+    <x-forms.input-group name="parking" type="number" :label="__('Parqueadero')"  maxlength="30"
                          value="{{ $model->parking ?? '' }}"/>
 
     <x-forms.input-group name="total_area" :label="__('Área total')"  maxlength="30"
@@ -60,10 +60,11 @@
                          value="{{ $model->apartment_area ?? '' }}"
                          data-inputmask="'mask': '9{1,9} mt²'"/>
 
-    <x-forms.input-group name="year_of_remodeling" :label="__('Año de remodelado')"  maxlength="30"
+    <x-forms.input-group name="year_of_remodeling" type="number" :label="__('Año de remodelado')"  maxlength="30"
                          value="{{ $model->year_of_remodeling ?? '' }}"/>
 
     <x-forms.input-group name="administration" :label="__('Administración')" maxlength="30"
+                         data-inputmask="'alias': 'currency'"
                          value="{{ $model->administration ?? '' }}"/>
 
     <x-forms.input-group type="select" name="status"
