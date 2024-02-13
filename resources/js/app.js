@@ -164,7 +164,7 @@ $(document).ready(function () {
 
     initGlobalLoading();
 
-    const pathsToEventsForms = ['residential-units.create', 'real-estate.create', 'real-estate.update']
+    const pathsToEventsForms = ['residential-units.create', 'real-estate.create', 'real-estate.index']
     if (pathsToEventsForms.includes(route().current())) loadGlobalEventsForms();
 
     if (route().current() === 'residential-units.index') loadViewUnitsIndex();

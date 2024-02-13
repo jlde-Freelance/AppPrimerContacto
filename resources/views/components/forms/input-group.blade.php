@@ -18,6 +18,9 @@
         @case('select')
             <x-forms.input-select :id="$name" :name="$name" {{ $attributes }}/>
             @break
+        @case('range')
+            <x-forms.input-range :id="$id ?? $name" :name="$name" {{ $attributes }}/>
+            @break
     @endswitch
     <x-forms.input-error :messages="$errors->get($name)" class="mt-2"/>
 </div>

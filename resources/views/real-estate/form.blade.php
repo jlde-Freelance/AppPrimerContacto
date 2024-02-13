@@ -32,7 +32,7 @@
             <i class="bi bi-save"></i>
             @if(isset($model)) Actualizar @else Registrar @endif Inmueble
         </x-button>
-        <x-button secondary link href="{{route('residential-units.index')}}">
+        <x-button secondary link href="{{route('real-estate.index')}}">
             <i class="bi bi-arrow-left-short"></i>
             Regresar
         </x-button>

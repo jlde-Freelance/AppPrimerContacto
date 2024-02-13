@@ -5,9 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Location;
 use App\Models\MasterOptions;
+use Database\Factories\RealEstateFactory;
 use App\Models\User;
 use App\Types\MasterOptionsType;
 use App\Types\UserProfile;
+use Database\Factories\ResourceFileFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -20,6 +22,8 @@ class DatabaseSeeder extends Seeder {
         $this->createAdminUser();
         $this->loadMasterOptions();
         $this->loadLocations();
+        $this->createRealEstate();
+        $this->createResourceFile();
     }
 
     /**
@@ -252,6 +256,14 @@ class DatabaseSeeder extends Seeder {
             }
         }
 
+    }
+
+    private function createRealEstate(): void {
+        RealEstateFactory::new()->count(1000)->create();
+    }
+
+    private function createResourceFile(): void {
+        ResourceFileFactory::new()->count(123)->create();
     }
 
     /*

@@ -29,10 +29,30 @@ class RealEstateController extends Controller {
          * We capture the data sent by POST to register the user.
          */
         if ($request->isMethod('POST')) {
+            $filters = $request->get('filters', []);
+
+            $query = RealEstate::query();
+
+            if (!is_null($filters)) {
+                foreach ($filters as $key => $value) {
+                    if (!is_null($value)) {
+                        if (strpos($key, '_min')) {
+                            $column = str_replace('_min', '', $key);
+                            $query->where($column, '>=', unformatMoney($value));
+                        } elseif (strpos($key, '_max')) {
+                            $column = str_replace('_max', '', $key);
+                            $query->where($column, '<=', unformatMoney($value));
+                        } else {
+                            $query->where($key, $value);
+                        }
+                    }
+                }
+            }
+
             $start = (int)$request->get('start', 1);
-            $length = (int)$request->get('length', 10);
+            $length = (int)$request->get('length', RealEstate::count());
             $page = ($start / $length) + 1;
-            $data = RealEstate::query()->whereNot('status', RealEstate::STATUS_IN_CREATION)->paginate(perPage: $length, page: $page);
+            $data = $query->whereNot('status', RealEstate::STATUS_IN_CREATION)->paginate(perPage: $length, page: $page);
             return [
                 'data' => $data->collect()->map(function (RealEstate $item) {
                     return [
@@ -46,6 +66,8 @@ class RealEstateController extends Controller {
                         'rental_value' => $item->rental_value,
                         'sale_value' => $item->sale_value,
                         'location' => $item->location?->toArray(),
+                        'latitude' => $item->latitude,
+                        'longitude' => $item->longitude,
                         'images' => $item->getImages(ResourceFile::IMG_SIZE_SMALL),
                         'bedrooms' => $item->bedrooms,
                         'bathrooms' => $item->bathrooms,
@@ -57,8 +79,15 @@ class RealEstateController extends Controller {
             ];
         }
 
+        $Options = MasterOptions::getDataFormSelect([
+            MasterOptionsType::TYPE_REAL_ESTATE,
+            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
+            MasterOptionsType::TYPE_SPECIFICATIONS
+        ]);
+        $Options[Location::TYPE_LOCATION_OPTIONS] = Location::getDataFormSelect();
+
         confirmDelete(__('messages.confirm.title'), __('messages.confirm.delete-item'));
-        return view('real-estate.index');
+        return view('real-estate.index', compact('Options'));
     }
 
     /**
