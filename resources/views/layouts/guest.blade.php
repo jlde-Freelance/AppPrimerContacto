@@ -7,11 +7,23 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet"/>
 
+    <!-- Scripts -->
+    @stack('stylesheet')
+    @vite('resources/css/app.css')
+    @routes
 </head>
 <body {{ $attributes->merge(['class'=> 'bg-bright-gray']) }}>
+
     {{ $slot }}
+
+    <x-loading/>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+
+    @stack('scripts')
+    @vite('resources/js/app.js')
 </body>
 </html>

@@ -7,6 +7,7 @@ Alpine.start();
 
 import loadViewUnitsIndex from "./units.index.js";
 import loadViewRealEstateIndex from "./real-estate.index.js";
+import loadViewRealEstateDetail from "./real-estate.detail.js";
 import loadScriptFormRealState from "./real-estate.create.js";
 
 $(document).ready(function () {
@@ -169,6 +170,7 @@ $(document).ready(function () {
 
     if (route().current() === 'residential-units.index') loadViewUnitsIndex();
     if (route().current() === 'real-estate.index') loadViewRealEstateIndex();
+    if (route().current() === 'real-estate.detail') loadViewRealEstateDetail();
     if (['real-estate.create', 'real-estate.update'].includes(route().current())) loadScriptFormRealState();
 
 });

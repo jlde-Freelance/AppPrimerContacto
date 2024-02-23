@@ -32,7 +32,6 @@ const loadViewRealEstateIndex = () => {
             columns: [
                 {
                     data: function (row) {
-                        const neighborhood = row.metadata?.find(x => x.key === 'neighborhood')?.value || '';
                         return `
                             <figure class="max-w-lg">
                               <img class="h-auto max-w-full rounded-lg" src="http://localhost:8000/img/image_default.jpeg" alt="image description">
@@ -143,7 +142,7 @@ const loadViewRealEstateIndex = () => {
                                 <!-- Dropdown list -->
                                 <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
                                      :id="$id('dropdown-button')" class="absolute z-10 right-0 py-2 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                                    <a href="${route('real-estate.index', row.uuid)}" target="_blank" class="block text-start px-4 py-2 text-gray-700 font-bold cursor-pointer hover:bg-gray-400 hover:text-white">
+                                    <a href="${route('real-estate.detail', row.uuid)}" target="_blank" class="block text-start px-4 py-2 text-gray-700 font-bold cursor-pointer hover:bg-gray-400 hover:text-white">
                                         <i class="bi bi-person-vcard w-4 h-4 mr-2"></i>
                                         Ficha
                                     </a>
@@ -197,15 +196,12 @@ const loadViewRealEstateIndex = () => {
         (new MutationObserver(() => (menuItem.style.display !== 'none' && leafletMap.invalidateSize()))).observe(menuItem, {attributes: true});
     }
 
-
-
     $('#filter-datatable-real-estate-index').submit((e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const filters = _.fromPairs(Array.from(formData.entries()));
         initDataTable(_.omit(filters, '_token'));
     });
-
 
     $('#tab-real-estate-map').click(() => initLeaflet());
 

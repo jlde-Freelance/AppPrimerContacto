@@ -28,6 +28,15 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
         @endpush
         @break
+    @case("PhotoSwipe")
+        @push('stylesheet')
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css"/>
+        @endpush
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe.umd.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe-lightbox.umd.min.js"></script>
+        @endpush
+        @break
     @case("InputMask")
         @push('scripts')
             <script src="//cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/jquery.inputmask.min.js"></script>

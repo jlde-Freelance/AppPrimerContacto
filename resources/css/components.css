@@ -13,6 +13,7 @@
     .prc-checkbox { @apply w-5 h-5 border-2 border-vegas-gold focus:bg-vegas-gold cursor-pointer }
     .prc-button { @apply text-base !bg-blue-green text-white !py-2.5 !px-4 !rounded-md uppercase hover:saturate-200 flex items-center justify-center gap-2 focus:!shadow }
     .prc-button.prc-button-secondary { @apply !bg-white !text-blue-green border-2 !border-blue-green !font-semibold }
+    .prc-button.prc-button-icon { @apply inline-flex items-center justify-center h-10 w-10 text-center text-base leading-6 }
 
     .prc-status { @apply bg-green-100 text-green-800 text-xs mr-2 px-2.5 py-0.5 rounded-2xl border-green-800 border font-semibold}
     .prc-status.status-value-0 { @apply bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-2xl border-red-800 }

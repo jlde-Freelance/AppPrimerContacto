@@ -160,6 +160,10 @@ class RealEstate extends ModelBase {
         return str_pad($lastCode, 5, '0', STR_PAD_LEFT);
     }
 
+    public static function findByUUID($uuid) {
+        return RealEstate::where('uuid', $uuid)->firstOrFail();
+    }
+
 
     /**
      * @param $size

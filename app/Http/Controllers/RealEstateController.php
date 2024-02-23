@@ -91,6 +91,23 @@ class RealEstateController extends Controller {
     }
 
     /**
+     * @param $uuid
+     * @return Application|Factory|View|\Illuminate\Foundation\Application
+     */
+    public function detail($model) {
+        $realEstate = RealEstate::findByUUID($model);
+        $Options = MasterOptions::getDataFormSelect([
+            MasterOptionsType::TYPE_REAL_ESTATE,
+            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
+            MasterOptionsType::TYPE_SPECIFICATIONS
+        ]);
+
+        $specifications = json_decode($realEstate->specifications);
+
+        return view('real-estate.detail', compact('Options','realEstate', 'specifications'));
+    }
+
+    /**
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function create() {

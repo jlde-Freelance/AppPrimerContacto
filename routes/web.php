@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
      */
     Route::prefix('/real-estate')->group(function () {
         Route::match(['GET', 'POST'], '/', [RealEstateController::class, 'index'])->name('real-estate.index');
+        Route::get('/detail/{model}', [RealEstateController::class, 'detail'])->name('real-estate.detail');
         Route::get('/create', [RealEstateController::class, 'create'])->name('real-estate.create');
         Route::get('/update/{model}', [RealEstateController::class, 'update'])->name('real-estate.update');
         Route::post('/store/{model?}', [RealEstateController::class, 'store'])->name('real-estate.store');
