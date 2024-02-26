@@ -202,7 +202,7 @@ class RealEstate extends ModelBase {
                 $this->cache_image[$key] = current($value);
             }
         }
-        return $size ? $this->cache_image[$size] : $this->cache_image;
+        return ($size && $this->cache_image) ? $this->cache_image[$size] : $this->cache_image;
     }
 
     /**
@@ -224,7 +224,7 @@ class RealEstate extends ModelBase {
                     $this->cache_images[$key][] = asset("images/$key/$Path");
                 }
             }
-            return $size ? $this->cache_images[$size] : $this->cache_images;
+            return ($size && $this->cache_images) ? $this->cache_images[$size] : $this->cache_images;
         }
         return [];
     }
