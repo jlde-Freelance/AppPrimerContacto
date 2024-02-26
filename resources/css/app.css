@@ -17,3 +17,5 @@
 ::-webkit-scrollbar-thumb:hover { background: #11484A; }
 
 div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel { border: 2px solid #11484a !important; }
+
+.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img { object-fit: contain}

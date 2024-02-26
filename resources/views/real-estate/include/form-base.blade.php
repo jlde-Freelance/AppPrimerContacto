@@ -83,7 +83,7 @@
 
     <div class="md:col-span-3">
         <hr>
-        <x-forms.input-group name="description" :label="__('Descripción')"  maxlength="2000"
+        <x-forms.input-group type="textarea" name="description" :label="__('Descripción')"  maxlength="2000"
                              value="{{ $model->description ?? '' }}"/>
     </div>
     <x-forms.input-error class="md:col-span-2 py-2" :messages="$errors->get('default')"/>

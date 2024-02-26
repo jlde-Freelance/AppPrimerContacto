@@ -8,7 +8,7 @@
     /* Inputs Forms */
     .prc-input-group { @apply mb-2 }
     .prc-label { @apply block text-base font-medium mb-2 }
-    .prc-input { @apply h-11 w-full rounded-md text-base focus:outline-vegas-gold border-2 border-philippine-silver px-4 py-2 read-only:bg-bright-gray }
+    .prc-input { @apply w-full rounded-md text-base focus:outline-vegas-gold border-2 border-philippine-silver px-4 py-2 read-only:bg-bright-gray }
     .prc-input-file-simple { @apply block w-full border-2 focus:outline-vegas-gold focus:border-vegas-gold border-philippine-silver  shadow-sm rounded-lg text-sm focus:z-10 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4 }
     .prc-checkbox { @apply w-5 h-5 border-2 border-vegas-gold focus:bg-vegas-gold cursor-pointer }
     .prc-button { @apply text-base !bg-blue-green text-white !py-2.5 !px-4 !rounded-md uppercase hover:saturate-200 flex items-center justify-center gap-2 focus:!shadow }
