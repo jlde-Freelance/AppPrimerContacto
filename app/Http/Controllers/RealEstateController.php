@@ -68,6 +68,7 @@ class RealEstateController extends Controller {
                         'location' => $item->location?->toArray(),
                         'latitude' => $item->latitude,
                         'longitude' => $item->longitude,
+                        'image' => $item->getImagePrimary(ResourceFile::IMG_SIZE_SMALL),
                         'images' => $item->getImages(ResourceFile::IMG_SIZE_SMALL),
                         'bedrooms' => $item->bedrooms,
                         'bathrooms' => $item->bathrooms,
@@ -99,12 +100,9 @@ class RealEstateController extends Controller {
         $Options = MasterOptions::getDataFormSelect([
             MasterOptionsType::TYPE_REAL_ESTATE,
             MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
-            MasterOptionsType::TYPE_SPECIFICATIONS
+            MasterOptionsType::TYPE_SPECIFICATIONS  
         ]);
-
-        $specifications = json_decode($realEstate->specifications);
-
-        return view('real-estate.detail', compact('Options','realEstate', 'specifications'));
+        return view('real-estate.detail', compact('Options','realEstate'));
     }
 
     /**

@@ -4,8 +4,8 @@ const loadViewRealEstateIndex = () => {
 
     const mapHouseIcon = L.icon({
         iconUrl: 'img/house_location_home_map_pin.png',
-        iconSize:     [40, 40], // size of the icon
-        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+        iconSize: [40, 40], // size of the icon
+        popupAnchor: [0, -20] // point from which the popup should open relative to the iconAnchor
     });
 
     const C = (value) => (currency(value, {separator: '.', precision: 0, pattern: `! #`}).format())
@@ -24,7 +24,7 @@ const loadViewRealEstateIndex = () => {
                 method: 'POST',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 data: function (d) {
-                    return { start: d.start, length: d.length, filters: filters};
+                    return {start: d.start, length: d.length, filters: filters};
                 }
             },
             processing: true,
@@ -32,12 +32,12 @@ const loadViewRealEstateIndex = () => {
             columns: [
                 {
                     data: function (row) {
-                        return `
-                            <figure class="max-w-lg">
-                              <img class="h-auto max-w-full rounded-lg" src="http://localhost:8000/img/image_default.jpeg" alt="image description">
+                        const defaultImage = `${route().t.url}/img/image_default.jpeg`
+                        const _src = row.image || defaultImage;
+                        return `<figure class="max-w-lg">
+                              <img class="h-auto max-w-[100px] rounded-lg" src="${_src}" onerror="if (this.src != '${defaultImage}') this.src = '${defaultImage}';" alt="image description">
                               <figcaption class="mt-2 text-xs text-center text-gray-500 dark:text-gray-400">#${row.code}</figcaption>
-                            </figure>
-                    `
+                            </figure>`
                     }
                 },
                 {
@@ -176,8 +176,8 @@ const loadViewRealEstateIndex = () => {
             url: route("real-estate.index"),
             method: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success: function({ data }) {
-                $.each(data, function(index, { location, latitude, longitude }) {
+            success: function ({data}) {
+                $.each(data, function (index, {location, latitude, longitude}) {
                     var popupContent = "<b>Department:</b> " + location.department_name + "<br><b>Municipality:</b> " + location.municipality_name;
                     // Añade el marcador al grupo de marcadores en lugar de al mapa directamente
                     var marker = L.marker([latitude, longitude], {icon: mapHouseIcon}).bindPopup(popupContent);

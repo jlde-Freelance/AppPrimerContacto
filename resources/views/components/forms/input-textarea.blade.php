@@ -1,0 +1,2 @@
+@props(['disabled' => false,'attr'=> []])
+<textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(array_merge(['type'=>'text','class'=>'prc-input', 'value' => $value ?? old($name ?? '')], $attr)) !!}>

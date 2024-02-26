@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @property string $value
  * @property integer $order
  * @method static Builder getOptionsByType(MasterOptionsType $type)
+ * @method static Builder getOptionsInArray(array $inArray)
  */
 class MasterOptions extends ModelBase {
 
@@ -32,6 +33,15 @@ class MasterOptions extends ModelBase {
      */
     public function scopeGetOptionsByType(Builder $query, MasterOptionsType $type): void {
         $query->where('type', '=', $type);
+    }
+
+    /**
+     * @param Builder $query
+     * @param array $inArray
+     * @return void
+     */
+    public function scopeGetOptionsInArray(Builder $query, array $inArray): void {
+        $query->whereIn('id', $inArray);
     }
 
     /**

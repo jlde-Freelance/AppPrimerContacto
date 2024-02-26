@@ -54,6 +54,14 @@ class RealEstate extends ModelBase {
     public const  STATUS_INACTIVE = 2;
 
     /**
+     * Variables de cache
+     */
+
+    private array|null $cache_image = null;
+    private array|null $cache_images = null;
+    private array|null $cache_specifications = null;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -164,18 +172,37 @@ class RealEstate extends ModelBase {
         return RealEstate::where('uuid', $uuid)->firstOrFail();
     }
 
+    /**
+     * @return MasterOptions[]|null
+     */
+    public function getSpecificationsDetail(): ?array {
+        if ($this->cache_specifications) return $this->cache_specifications;
+        if ($this->specifications) {
+            $this->cache_specifications = MasterOptions::getOptionsInArray($this->specifications)->get()->all();
+            return $this->cache_specifications;
+        }
+        return [];
+    }
+
 
     /**
      * @param $size
      * @return array|mixed
      */
-    public function getImagePrimary($size = null) {
-        $images = [];
-        $SIZES = ResourceFile::getSizes();
-        foreach ($SIZES as $key => $value) {
-            $images[$key] = asset("images/$key/$this->image_primary");
+    public function getImagePrimary($size = null): mixed {
+        if ($this->cache_image) return $size ? $this->cache_image[$size] : $this->cache_image;
+        $this->cache_image = [];
+        if ($this->image_primary) {
+            $SIZES = ResourceFile::getSizes();
+            foreach ($SIZES as $key => $value) {
+                $this->cache_image[$key] = asset("images/$key/$this->image_primary");
+            }
+        } elseif ($_images = $this->getImages()) {
+            foreach ($_images as $key => $value) {
+                $this->cache_image[$key] = current($value);
+            }
         }
-        return $size ? $images[$size] : $images;
+        return $size ? $this->cache_image[$size] : $this->cache_image;
     }
 
     /**
@@ -183,21 +210,21 @@ class RealEstate extends ModelBase {
      * @return array|mixed
      */
     public function getImages($size = null): mixed {
-        if (isset($this->images)) return $this->images;
+        if ($this->cache_images) return $size ? $this->cache_images[$size] : $this->cache_images;
         $ResourceFilesPath = ResourceFile::query()
             ->where('entity', RealEstate::class)
             ->where('entity_id', $this->id)
             ->get()->collect()->map(fn(ResourceFile $x) => $x->path)
             ->toArray();
         if ($ResourceFilesPath) {
-            $images = [];
+            $this->cache_images = [];
             $SIZES = ResourceFile::getSizes();
             foreach ($ResourceFilesPath as $Path) {
                 foreach ($SIZES as $key => $value) {
-                    $images[$key][] = asset("images/$key/$Path");
+                    $this->cache_images[$key][] = asset("images/$key/$Path");
                 }
             }
-            return $size ? $images[$size] : $images;
+            return $size ? $this->cache_images[$size] : $this->cache_images;
         }
         return [];
     }

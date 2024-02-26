@@ -5,9 +5,9 @@ export default function loadScriptFormRealState() {
 
     const initLeaflet = () => {
 
-        const leafletMap = L.map('map').setView([6.2428056, -75.588572], 15);
         const inputLatitude = document.getElementById('latitude')
         const inputLongitude = document.getElementById('longitude')
+        const leafletMap = L.map('map').setView([inputLatitude.value || '6.2428056', inputLongitude.value || '-75.588572'], (inputLatitude.value ? 16 : 14));
 
         L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
