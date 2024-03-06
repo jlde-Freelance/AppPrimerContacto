@@ -11,7 +11,7 @@
             <div class="prc-input-group">
                 <x-forms.input-label for="email" :value="ucfirst(__('validation.attributes.username'))"/>
                 <x-forms.input-text id="email" name="email" class="md:min-w-[300px]" required autofocus autocomplete="email"
-{{--                                    value="admin@primercontacto.co" --}}
+                                    :value="env('APP_ENV') === 'dev'? 'admin@primercontacto.co':''"
                 />
                 <x-forms.input-error :messages="$errors->get('email')" class="mt-2"/>
             </div>
@@ -20,7 +20,7 @@
             <div class="prc-input-group">
                 <x-forms.input-label for="password" :value="ucfirst(__('validation.attributes.password'))"/>
                 <x-forms.input-text type="password" id="password" name="password"  class="md:min-w-[300px]" required
-{{--                                    value="PrimerContacto2023.*" --}}
+                                    :value="env('APP_ENV') === 'dev'? 'PrimerContacto2023.*':''"
                 />
                 <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
             </div>

@@ -191,7 +191,7 @@ class RealEstate extends ModelBase {
      */
     public function getImagePrimary($size = null): mixed {
         if ($this->cache_image) return $size ? $this->cache_image[$size] : $this->cache_image;
-        $this->cache_image = [];
+        $this->cache_image = null;
         if ($this->image_primary) {
             $SIZES = ResourceFile::getSizes();
             foreach ($SIZES as $key => $value) {
@@ -200,6 +200,11 @@ class RealEstate extends ModelBase {
         } elseif ($_images = $this->getImages()) {
             foreach ($_images as $key => $value) {
                 $this->cache_image[$key] = current($value);
+            }
+        } else {
+            $SIZES = ResourceFile::getSizes();
+            foreach ($SIZES as $key => $value) {
+                $this->cache_image[$key] = asset('img/default_image.jpg');
             }
         }
         return ($size && $this->cache_image) ? $this->cache_image[$size] : $this->cache_image;
