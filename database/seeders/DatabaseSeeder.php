@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder {
         $this->createAdminUser();
         $this->loadMasterOptions();
         $this->loadLocations();
-        $this->createRealEstate();
-        $this->createResourceFile();
+//        $this->createRealEstate();
+//        $this->createResourceFile();
     }
 
     /**
