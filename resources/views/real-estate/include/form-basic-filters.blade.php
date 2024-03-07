@@ -31,7 +31,7 @@
     </div>
 
     <x-forms.input-group name="code" :label="__('Código')"
-                         maxlength="10"
-                         data-inputmask="'alias': 'numeric', 'placeholder': '', 'prefix': '# ', 'rightAlign': false"/>
+                         maxlength="6"
+                         data-inputmask="'alias': 'numeric', 'removeMaskOnSubmit': true, 'stripLeadingZeroes': false, 'placeholder': '', 'prefix': '#', 'rightAlign': false"/>
 
 </div>

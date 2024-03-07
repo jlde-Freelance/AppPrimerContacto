@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/','login');
-Route::get('/real-state/{model}', [RealEstateController::class, 'detail'])->name('real-estate.detail');
-
+Route::get('/real-state/{model}/{contact?}', [RealEstateController::class, 'detail'])->name('real-estate.detail');
 
 /*
  * Routes that require authentication

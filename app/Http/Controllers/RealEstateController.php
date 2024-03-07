@@ -36,7 +36,11 @@ class RealEstateController extends Controller {
             if (!is_null($filters)) {
                 foreach ($filters as $key => $value) {
                     if (!is_null($value)) {
-                        if (strpos($key, '_min')) {
+                        if ($key === 'specifications') {
+                            foreach ($value as $specification) {
+                                $query->whereJsonContains($key, $specification);
+                            }
+                        } elseif (strpos($key, '_min')) {
                             $column = str_replace('_min', '', $key);
                             $query->where($column, '>=', unformatMoney($value));
                         } elseif (strpos($key, '_max')) {
@@ -49,7 +53,7 @@ class RealEstateController extends Controller {
                 }
             }
 
-            $start = (int)$request->get('start', 1);
+            $start = (int)$request->get('start', 0);
             $length = (int)$request->get('length', RealEstate::count());
             $page = ($start / $length) + 1;
             $data = $query->whereNot('status', RealEstate::STATUS_IN_CREATION)->paginate(perPage: $length, page: $page);
@@ -100,7 +104,7 @@ class RealEstateController extends Controller {
         $Options = MasterOptions::getDataFormSelect([
             MasterOptionsType::TYPE_REAL_ESTATE,
             MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
-            MasterOptionsType::TYPE_SPECIFICATIONS  
+            MasterOptionsType::TYPE_SPECIFICATIONS
         ]);
         return view('real-estate.detail', compact('Options','realEstate'));
     }

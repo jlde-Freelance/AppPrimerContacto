@@ -177,6 +177,7 @@ const loadViewRealEstateIndex = () => {
             method: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function ({data}) {
+                console.log(data)
                 $.each(data, function (index, {location, latitude, longitude}) {
                     var popupContent = "<b>Department:</b> " + location.department_name + "<br><b>Municipality:</b> " + location.municipality_name;
                     // Añade el marcador al grupo de marcadores en lugar de al mapa directamente
@@ -199,8 +200,10 @@ const loadViewRealEstateIndex = () => {
     $('#filter-datatable-real-estate-index').submit((e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        const specifications = formData.getAll('specifications[]');
         const filters = _.fromPairs(Array.from(formData.entries()));
-        initDataTable(_.omit(filters, '_token'));
+        filters.specifications = specifications;
+        initDataTable(_.omit(filters, ['_token', 'specifications[]']));
     });
 
     $('#tab-real-estate-map').click(() => initLeaflet());

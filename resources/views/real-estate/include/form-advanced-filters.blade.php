@@ -19,13 +19,13 @@
     <x-forms.input-group type="range" name="parking" :label="__('Parqueadero')" maxlength="30"/>
 
     <x-forms.input-group type="range" name="total_area" :label="__('Área total')" maxlength="30"
-                         data-inputmask="'mask': '9{1,9} mt²'"/>
+                         data-inputmask="'mask': '9{1,9} mt²', 'removeMaskOnSubmit': true"/>
 
     <x-forms.input-group type="range" name="built_area" :label="__('Área construida')" maxlength="30"
-                         data-inputmask="'mask': '9{1,9} mt²'"/>
+                         data-inputmask="'mask': '9{1,9} mt²', 'removeMaskOnSubmit': true"/>
 
     <x-forms.input-group type="range" name="apartment_area" :label="__('Área apartamento')" maxlength="30"
-                         data-inputmask="'mask': '9{1,9} mt²'"/>
+                         data-inputmask="'mask': '9{1,9} mt²', 'removeMaskOnSubmit': true"/>
 
     <x-forms.input-group type="range" name="year_of_remodeling" :label="__('Año de remodelado')" maxlength="30"/>
 
