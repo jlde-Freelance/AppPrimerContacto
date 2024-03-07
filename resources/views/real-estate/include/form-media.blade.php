@@ -5,7 +5,7 @@
 
         <x-forms.input-group type="file" name="image_primary"
                              :label="__('Imagen Principal')"
-                             allow-format="image/jpeg,image/jpg,image/png"/>
+                             accept="image/jpeg,image/jpg,image/png"/>
 
         <div class="p-3 flex justify-center">
             @php($src =  isset($model) ? $model->getImagePrimary(ResourceFile::IMG_SIZE_MEDIUM) : asset('img/default_image.jpg'))

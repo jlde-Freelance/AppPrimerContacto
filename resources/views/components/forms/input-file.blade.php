@@ -1,2 +1,2 @@
 @props(['disabled' => false,'attr'=> []])
-<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(array_merge(['type'=>'text','class'=>'prc-input-file-simple', 'value' => $value ?? old($name ?? '')], $attr)) !!}>
+<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(array_merge(['class'=>'prc-input-file-simple'], $attr)) !!}>

@@ -203,6 +203,7 @@ class RealEstateController extends Controller {
         $ImagePrimary = $request->allFiles()['image_primary'] ?? null;
         if ($ImagePrimary) {
             $FileName = sprintf('%s_%s.jpg', \Str::uuid(), $model->id);
+            ResourceFile::removeImage($model->image_primary);
             $IMGs = ResourceFile::saveNewImage($ImagePrimary, $FileName);
             if ($status = count($IMGs) > 0) {
                 $model->image_primary = $FileName;
