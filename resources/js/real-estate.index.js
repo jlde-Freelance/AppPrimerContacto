@@ -177,9 +177,14 @@ const loadViewRealEstateIndex = () => {
             method: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function ({data}) {
-                console.log(data)
-                $.each(data, function (index, {location, latitude, longitude}) {
-                    var popupContent = "<b>Department:</b> " + location.department_name + "<br><b>Municipality:</b> " + location.municipality_name;
+                $.each(data, function (index, {location, latitude, longitude, ...data}) {
+                    var popupContent = `
+                        <div>
+                            <b>${data.type}</b><br>
+                            <span>${data.action}</span><br>
+                            ${ location ? `<b>${location.department_name}</b> ${location.municipality_name}`: ''}
+                        </div>
+                    `;
                     // Añade el marcador al grupo de marcadores en lugar de al mapa directamente
                     var marker = L.marker([latitude, longitude], {icon: mapHouseIcon}).bindPopup(popupContent);
                     markers.addLayer(marker);
