@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ResidentialUnits;
 use Exception;
 use App\Facades\Alert;
 use App\Models\Location;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class RealEstateController extends Controller {
@@ -56,7 +58,7 @@ class RealEstateController extends Controller {
             $start = (int)$request->get('start', 0);
             $length = (int)$request->get('length', RealEstate::count());
             $page = ($start / $length) + 1;
-            $data = $query->whereNot('status', RealEstate::STATUS_IN_CREATION)->paginate(perPage: $length, page: $page);
+            $data = $query->paginate(perPage: $length, page: $page);
             return [
                 'data' => $data->collect()->map(function (RealEstate $item) {
                     return [
@@ -106,19 +108,14 @@ class RealEstateController extends Controller {
             MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
             MasterOptionsType::TYPE_SPECIFICATIONS
         ]);
-        return view('real-estate.detail', compact('Options','realEstate'));
+        return view('real-estate.detail', compact('Options', 'realEstate'));
     }
 
     /**
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function create() {
-        $Options = MasterOptions::getDataFormSelect([
-            MasterOptionsType::TYPE_REAL_ESTATE,
-            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
-            MasterOptionsType::TYPE_SPECIFICATIONS
-        ]);
-        $Options[Location::TYPE_LOCATION_OPTIONS] = Location::getDataFormSelect();
+        $Options = $this->getOptionsRealEstate();
         $newCode = RealEstate::getLastCode();
         return view('real-estate.create', compact('Options', 'newCode'));
     }
@@ -127,14 +124,19 @@ class RealEstateController extends Controller {
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function update(RealEstate $model) {
-        $Options = MasterOptions::getDataFormSelect([
-            MasterOptionsType::TYPE_REAL_ESTATE,
-            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
-            MasterOptionsType::TYPE_SPECIFICATIONS
-        ]);
-        $Options[Location::TYPE_LOCATION_OPTIONS] = Location::getDataFormSelect();
-        $newCode = RealEstate::getLastCode();
+        $Options = $this->getOptionsRealEstate($model);
         return view('real-estate.update', compact('Options', 'model'));
+    }
+
+    /**
+     * @param RealEstate $model
+     * @return RedirectResponse
+     */
+    public function destroy(RealEstate $model) {
+        $model->deleteAllImages();
+        $model->delete();
+        Alert::tSuccess('messages.success.model-destroy');
+        return redirect()->route('real-estate.index');
     }
 
     /**
@@ -169,6 +171,21 @@ class RealEstateController extends Controller {
         if ($status) Alert::tSuccess('messages.success.model-update');
         return redirect()->route('real-estate.index');
 
+    }
+
+    /**
+     * @param $model
+     * @return array|Collection
+     */
+    protected function getOptionsRealEstate($model = null) {
+        $Options = MasterOptions::getDataFormSelect([
+            MasterOptionsType::TYPE_REAL_ESTATE,
+            MasterOptionsType::TYPE_REAL_ESTATE_ACTION,
+            MasterOptionsType::TYPE_SPECIFICATIONS
+        ]);
+        $Options[Location::TYPE_LOCATION_OPTIONS] = Location::getDataFormSelect();
+        $Options[ResidentialUnits::TYPE_RESIDENTIAL_UNITS_OPTIONS] = ResidentialUnits::getDataFormSelect($model);
+        return $Options;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Currency;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -49,9 +50,8 @@ class RealEstate extends ModelBase {
 
     use SoftDeletes;
 
-    public const  STATUS_IN_CREATION = 0;
+    public const  STATUS_INACTIVE = 0;
     public const  STATUS_ACTIVE = 1;
-    public const  STATUS_INACTIVE = 2;
 
     /**
      * Variables de cache
@@ -149,7 +149,7 @@ class RealEstate extends ModelBase {
      * @return HasOne
      */
     public function unit(): HasOne {
-        return $this->hasOne(ResidentialUnits::class, 'id', 'unit_id');
+        return $this->hasOne(ResidentialUnits::class, 'id', 'unit_id')->withTrashed();
     }
 
     /**
@@ -157,6 +157,13 @@ class RealEstate extends ModelBase {
      */
     public function location(): HasOne {
         return $this->hasOne(Location::class, 'id', 'location_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function resourceFile(): HasMany {
+        return $this->hasMany(ResourceFile::class, 'entity_id', 'id')->where('entity', RealEstate::class);
     }
 
 
@@ -232,6 +239,20 @@ class RealEstate extends ModelBase {
             return ($size && $this->cache_images) ? $this->cache_images[$size] : $this->cache_images;
         }
         return [];
+    }
+
+    /**
+     * @return void
+     */
+    public function deleteAllImages(): void {
+        if ($this->image_primary) ResourceFile::removeImage($this->image_primary);
+        if ($this->resourceFile()->count()) {
+            $ResourceFiles = $this->resourceFile()->get()->all();
+            foreach ($ResourceFiles as $ResourceFile) {
+                ResourceFile::removeImage($ResourceFile->path);
+                $ResourceFile->delete();
+            }
+        }
     }
 
 }

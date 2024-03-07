@@ -25,9 +25,10 @@
                                  value="{{ isset($model) ? $model->stratum_id : '' }}"
                                  :options="$Options[MasterOptionsType::TYPE_STRATUM->name]"/>
 
-            <x-forms.input-group type="select" name="status"
+            <x-forms.input-group type="select" name="status" required
                                  :label="ucfirst(__('validation.attributes.status'))"
-                                 value="1"
+                                 data-allow-clear="false"
+                                 value="{{ isset($model) ? $model->status : '1' }}"
                                  :options="[1=>'Activo',0 =>'Inactivo']"/>
 
             <div class="md:col-span-2 py-2">

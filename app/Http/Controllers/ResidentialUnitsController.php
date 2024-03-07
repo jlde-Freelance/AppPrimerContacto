@@ -89,7 +89,8 @@ class ResidentialUnitsController extends Controller {
      * @return RedirectResponse
      */
     public function destroy(ResidentialUnits $model) {
-        $model->forceDelete();
+        if ($model->realEstates()->count()) $model->delete();
+        else $model->forceDelete();
         Alert::tSuccess('messages.success.model-destroy');
         return redirect()->route('residential-units.index');
     }

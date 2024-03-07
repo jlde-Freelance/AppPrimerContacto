@@ -1,4 +1,4 @@
-@php use \App\Types\MasterOptionsType; @endphp
+@php use \App\Types\MasterOptionsType; use App\Models\ResidentialUnits; @endphp
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
 
     <x-forms.input-group name="code" :label="__('Código')"
@@ -14,6 +14,7 @@
     <x-forms.input-group type="select" name="action_id"
                          :label="__('Acción')"
                          value="{{$model->action_id ?? ''}}" required
+                         data-minimum-results-for-search="Infinity"
                          :options="$Options[MasterOptionsType::TYPE_REAL_ESTATE_ACTION->name]"/>
 
     <x-forms.input-group name="sale_value" :label="__('Valor Venta')"
@@ -26,12 +27,21 @@
                          value="{{$model->rental_value ?? ''}}"
                          depends_of="action_id:28,29"/>
 
-    <x-forms.input-group type="select" name="unit_id"
-                         :label="__('Unidad residencial')"
-                         :options="isset($model->unit_id) ? [$model->unit_id => $model->unit->name] : []"
-                         value="{{  $model->unit_id ?? ''}}"
-                         data-ajax-url="{{ route('residential-units.select2ajax') }}"
-                         data-ajax-dataType="json"/>
+    @php($OptionsUnitIds = $Options[ResidentialUnits::TYPE_RESIDENTIAL_UNITS_OPTIONS])
+    @if($OptionsUnitIds)
+        <x-forms.input-group type="select" name="unit_id"
+                             :label="__('Unidad residencial')"
+                             value="{{$model->unit_id ?? ''}}"
+                             :data-minimum-results-for-search="count($OptionsUnitIds) > 5 ? 3:'Infinity'"
+                             :options="$OptionsUnitIds"/>
+    @else
+        <x-forms.input-group type="select" name="unit_id"
+                             :label="__('Unidad residencial')"
+                             :options="$OptionsUnitIds"
+                             value="{{  $model->unit_id ?? ''}}"
+                             data-ajax-url="{{ route('residential-units.select2ajax') }}"
+                             data-ajax-dataType="json"/>
+    @endif
 
     <x-forms.input-group name="house_level" type="number" :label="__('Cuantos Pisos')" maxlength="30"
                          value="{{ $model->house_level ?? '' }}"/>
@@ -67,9 +77,10 @@
                          data-inputmask="'alias': 'currency'"
                          value="{{ $model->administration ?? '' }}"/>
 
-    <x-forms.input-group type="select" name="status"
+    <x-forms.input-group type="select" name="status" required
                          :label="__('Estado')"
-                         value="1" required
+                         data-allow-clear="false"
+                         value="{{ isset($model) ? $model->status : '1' }}"
                          :options="[1=>'Activo',0 =>'Inactivo']"/>
 
     <div class="md:col-span-2">
