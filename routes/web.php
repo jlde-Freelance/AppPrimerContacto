@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientsControllers;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RealEstateController;
@@ -50,6 +51,20 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{model}', [ResidentialUnitsController::class, 'destroy'])->name('residential-units.destroy');
 
         Route::get('/select2ajax', [ResidentialUnitsController::class, 'select2Ajax'])->name('residential-units.select2ajax');
+    });
+
+    /**
+     * Clients controller routes
+     */
+    Route::prefix('/clients')->group(function () {
+        Route::match(['GET', 'POST'], '/', [ClientsControllers::class, 'index'])->name('clients.index');
+        Route::get('/create', [ClientsControllers::class, 'create'])->name('clients.create');
+        Route::get('/update/{model}', [ClientsControllers::class, 'update'])->name('clients.update');
+        Route::post('/store/{model?}', [ClientsControllers::class, 'store'])->name('clients.store');
+        Route::delete('/{model}', [ClientsControllers::class, 'destroy'])->name('clients.destroy');
+
+//      Route::get('/select2ajax', [ResidentialUnitsController::class, 'select2Ajax'])->name('residential-units.select2ajax');
+
     });
 
 

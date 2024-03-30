@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-if (!defined('TABLE_REAL_ESTATE_REQUEST')) define('TABLE_REAL_ESTATE_REQUEST', 'real_estate_requests');
+if (!defined('TABLE_REAL_ESTATE_REQUEST')) define('TABLE_REAL_ESTATE_REQUEST', 'real_estates_requests');
 
 return new class extends Migration {
     /**
@@ -15,12 +15,13 @@ return new class extends Migration {
 
             $table->id();
             $table->foreignId('client_id')->references('id')->on(TABLE_CLIENTS);
-            $table->foreignId('type_ids');
-            $table->foreignId('action_id')->references('id')->on(TABLE_MASTER_OPTIONS);
-            $table->foreignId('unit_ids');
-            $table->foreignId('location_ids');
+            $table->json('type_ids')->nullable();
+            $table->foreignId('action_id')->nullable()->references('id')->on(TABLE_MASTER_OPTIONS);
+            $table->json('unit_ids')->nullable();
+            $table->json('location_ids')->nullable();
             $table->decimal('rental_value', 12)->nullable();
             $table->decimal('sale_value', 12)->nullable();
+            $table->tinyInteger('status')->default(1);
 
             $table->string('latitude', 30)->comment('Latitud')->nullable();
             $table->string('longitude', 30)->comment('Longitud')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration {
             $table->string('built_area', 30)->comment('Área construida')->nullable();
             $table->string('apartment_area', 30)->comment('Área apartamento')->nullable();
             $table->string('year_of_remodeling', 30)->comment('Año de remodelado')->nullable();
-            $table->string('administration', 30)->comment('Administración')->nullable();
+            $table->decimal('administration', 12)->comment('Administración')->nullable();
 
             $table->foreignId('created_by')->nullable()->references('id')->on(TABLE_USER);
             $table->foreignId('updated_by')->nullable()->references('id')->on(TABLE_USER);

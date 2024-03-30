@@ -25,6 +25,10 @@
                 <x-sidebar-item label="Buscar Inmuebles" to="{{route('real-estate.index')}}"/>
                 <x-sidebar-item label="Crear Inmueble" to="{{route('real-estate.create')}}"/>
             </x-sidebar-item-dropdown>
+            <x-sidebar-item-dropdown icon="people" label="Admin. Clientes" path="client">
+                <x-sidebar-item label="Listar Clientes" to="{{route('clients.index')}}"/>
+                <x-sidebar-item label="Crear Clientes" to="{{route('clients.create')}}"/>
+            </x-sidebar-item-dropdown>
         </ul>
 
     </div>

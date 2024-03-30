@@ -24,10 +24,10 @@ return new class extends Migration {
             $table->decimal('sale_value', 12)->nullable();
             $table->string('image_primary', 100)->nullable();
             $table->string('description', 2000)->nullable();
-            $table->tinyInteger('status')->default(0);
-
             $table->string('address', 200)->comment('Dirección')->nullable();
             $table->string('neighborhood', 50)->comment('Barrio')->nullable();
+            $table->tinyInteger('status')->default(1);
+
             $table->string('latitude', 30)->comment('Latitud')->nullable();
             $table->string('longitude', 30)->comment('Longitud')->nullable();
             $table->string('house_level', 30)->comment('Cuantos Pisos')->nullable();
@@ -39,7 +39,7 @@ return new class extends Migration {
             $table->string('built_area', 30)->comment('Área construida')->nullable();
             $table->string('apartment_area', 30)->comment('Área apartamento')->nullable();
             $table->string('year_of_remodeling', 30)->comment('Año de remodelado')->nullable();
-            $table->string('administration', 30)->comment('Administración')->nullable();
+            $table->decimal('administration', 12)->comment('Administración')->nullable();
 
             $table->foreignId('created_by')->nullable()->references('id')->on(TABLE_USER);
             $table->foreignId('updated_by')->nullable()->references('id')->on(TABLE_USER);
@@ -60,4 +60,5 @@ return new class extends Migration {
         Schema::dropIfExists(TABLE_REAL_ESTATE);
         Schema::enableForeignKeyConstraints();
     }
+
 };

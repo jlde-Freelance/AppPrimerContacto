@@ -54,7 +54,7 @@ class RealEstate extends ModelBase {
     public const  STATUS_ACTIVE = 1;
 
     /**
-     * Variables de cache
+     * Variables de caché
      */
 
     private array|null $cache_image = null;
@@ -112,6 +112,7 @@ class RealEstate extends ModelBase {
     protected $casts = [
         'rental_value' => Currency::class,
         'sale_value' => Currency::class,
+        'administration' => Currency::class,
         'specifications' => 'array',
     ];
 

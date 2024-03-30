@@ -16,8 +16,14 @@ return new class extends Migration {
             $table->string('full_name', 400);
             $table->string('phone', 20);
             $table->string('email', 200);
+            $table->string('observations', 500);
             $table->timestamps();
+
+            $table->foreignId('created_by')->nullable()->references('id')->on(TABLE_USER);
+            $table->foreignId('updated_by')->nullable()->references('id')->on(TABLE_USER);
+
             $table->softDeletes();
+
         });
     }
 
